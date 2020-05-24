@@ -1,0 +1,29 @@
+version: "3.3"
+
+services:
+  web:
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
+    restart: always
+    ports: 
+      - 50001:8080
+  
+  database:
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - "project-data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd!
+ 
+  dbadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOSTS: database
+    ports:
+      - 50002:80
+
+volumes:
+  project-data:
