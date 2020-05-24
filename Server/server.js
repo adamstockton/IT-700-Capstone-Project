@@ -2,6 +2,8 @@
 
 const express = require('express');
 const mysql = require('mysql');
+const handlebars = require("express-handlebars");
+
 const db_pool = mysql.createPool({
     connectionLimit: 10,
     host: "database",
@@ -19,6 +21,20 @@ const HOST = '0.0.0.0';
 
 // App
 const app = express();
+
+// Set template engine
+app.engine("handlebars", handlebars.create({
+    helpers: {
+        section: function(name, options) { 
+          if (!this._sections) this._sections = {};
+            this._sections[name] = options.fn(this); 
+            return null;
+        }
+    }
+}).engine);
+app.set('view engine', 'handlebars');
+
+// Test routes (remove for production)
 app.get('/', (req, res) => {
     res.send('Hello World!!');
 });
