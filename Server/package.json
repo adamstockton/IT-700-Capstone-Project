@@ -1,8 +1,8 @@
 {
-    "name": "docker_test_web_app",
+    "name": "co-learn_portal",
     "version": "1.0.0",
-    "description": "Node.js on Docker",
-    "author": "First Last <first.last@example.com>",
+    "description": "Co-Learn Portal",
+    "author": "Adam Stockton <adam.stockton@snhu.edu>",
     "main": "server.js",
     "scripts": {
         "start": "node server.js"
