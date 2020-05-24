@@ -38,6 +38,9 @@ app.get('/dbtest', (req, res) => {
     });
 });
 
+// Handle static content
+app.use('/content', express.static('www'));
+
 // Inject Routers
 app.use('/login', router_login);
 
