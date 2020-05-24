@@ -10,6 +10,9 @@ const db_pool = mysql.createPool({
     database: "project"
 });
 
+// Import router modules
+const router_login = require("./route/login");
+
 // Constants
 const PORT = 8080;
 const HOST = '0.0.0.0';
@@ -34,6 +37,9 @@ app.get('/dbtest', (req, res) => {
         }
     });
 });
+
+// Inject Routers
+app.use('/login', router_login);
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
