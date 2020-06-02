@@ -50,3 +50,21 @@ CREATE TABLE meeting (
     video_conference varchar (4000),
     PRIMARY KEY (id)
 );
+
+CREATE TABLE discussion (
+    `id` int NOT NULL AUTO_INCREMENT,
+    class int,
+    `name` varchar(255),
+    description varchar(4000),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE discussion_post (
+    `id` int NOT NULL AUTO_INCREMENT,
+    discussion int,
+    parent int,
+    user int,
+    `subject` varchar(255),
+    body varchar(4000),
+    PRIMARY KEY (id)
+);
