@@ -4,13 +4,8 @@ const express = require('express');
 const mysql = require('mysql');
 const handlebars = require("express-handlebars");
 
-const db_pool = mysql.createPool({
-    connectionLimit: 10,
-    host: "database",
-    user: "root",
-    password: "P@ssw0rd!",
-    database: "project"
-});
+// Load Database Connection
+const db = require("./lib/db");
 
 // Import router modules
 const router_login = require("./route/login");
@@ -44,7 +39,7 @@ app.get('/index', (req, res) => {
 });
 
 app.get('/dbtest', (req, res) => {
-    db_pool.getConnection(function (e, connection) {
+    db.getConnection(function (e, connection) {
         if(!e) {
             res.send("Connected!");
             connection.release();
