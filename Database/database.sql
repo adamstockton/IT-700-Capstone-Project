@@ -9,6 +9,12 @@ CREATE TABLE `user` (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE `session` (
+    session_id varchar(32),
+    user int,
+    expiration DATETIME
+);
+
 CREATE TABLE class (
     `id` int NOT NULL AUTO_INCREMENT,
     `subject` varchar(64),

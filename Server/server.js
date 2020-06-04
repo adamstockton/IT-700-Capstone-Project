@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const mysql = require('mysql');
 const handlebars = require("express-handlebars");
+const cookieParser = require("cookie-parser");
 
 // Load Database Connection
 const db = require("./lib/db");
@@ -29,6 +29,9 @@ app.engine("handlebars", handlebars.create({
 }).engine);
 app.set('view engine', 'handlebars');
 
+// Load Cookie-Parser Middleware
+app.use(cookieParser());
+
 // Test routes (remove for production)
 app.get('/', (req, res) => {
     res.send('Hello World!!');
@@ -39,14 +42,14 @@ app.get('/index', (req, res) => {
 });
 
 app.get('/dbtest', (req, res) => {
-    db.getConnection(function (e, connection) {
+    /*db.getConnection(function (e, connection) {
         if(!e) {
             res.send("Connected!");
             connection.release();
         } else {
             res.send("Error connecting to database: " + e.message);
         }
-    });
+    });*/
 });
 
 // Handle static content
