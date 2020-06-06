@@ -20,10 +20,12 @@ router.use(async function (req, res, next) {
 router.get('/', function (req, res) {
     if(res.locals.user == null) {
         res.redirect('/login');
+        return;
     }
     
-    res.send("homepage");
-    //res.render("login/login");
+    res.render("home/home", {
+        user_data: res.locals.user
+    });
 });
 
 module.exports = router;
