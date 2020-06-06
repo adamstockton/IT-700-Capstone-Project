@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const db = require("./lib/db");
 
 // Import router modules
+const router_home = require("./route/home");
 const router_login = require("./route/login");
 
 // Constants
@@ -33,31 +34,13 @@ app.set('view engine', 'handlebars');
 app.use(cookieParser());
 app.use(express.json());
 
-// Test routes (remove for production)
-app.get('/', (req, res) => {
-    res.send('Hello World!!');
-});
-
-app.get('/index', (req, res) => {
-    res.send("This is a test index page");
-});
-
-app.get('/dbtest', (req, res) => {
-    /*db.getConnection(function (e, connection) {
-        if(!e) {
-            res.send("Connected!");
-            connection.release();
-        } else {
-            res.send("Error connecting to database: " + e.message);
-        }
-    });*/
-});
-
 // Handle static content
 app.use('/content', express.static('www'));
 
 // Inject Routers
+app.use('/', router_home);
 app.use('/login', router_login);
+
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
