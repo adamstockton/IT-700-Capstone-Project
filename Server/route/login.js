@@ -23,6 +23,10 @@ router.get('/', function (req, res) {
     res.render("login/login");
 });
 
+router.get("/register", function (req, res) {
+    res.render("login/register");
+});
+
 router.post('/authenticate', async function (req, res) {
     console.log(req.body.username);
     // Check for payload properties
@@ -41,8 +45,22 @@ router.post('/authenticate', async function (req, res) {
     res.status(401).send({status:"failure"});
 });
 
-router.post('/', function (req, res) {
+router.post('/register', async function (req, res) {
+    // Create User
+    try {
+        var results = await db.query("INSERT INTO user (`username`, `password`, `first_name`, `last_name`, `type`) VALUES (?, ?, ?, ?, 'student')", [req.body.username, req.body.password, req.body.first_name, req.body.last_name]);
+    } catch {
+        res.status(400).send({status:"failure"});
+        return;
+    }
 
+    // Process Login
+    var token = await Login.authenticate(req.body.username, req.body.password);
+    if(token != null) {
+        res.send({status:"success",token:token});
+        return;
+    }
+    res.status(400).send({status:"failure"});
 });
 
 module.exports = router;

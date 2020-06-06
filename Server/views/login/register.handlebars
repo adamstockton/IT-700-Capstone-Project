@@ -1,0 +1,60 @@
+{{#section 'head'}}
+    <title>Register</title>
+{{/section}}
+
+<div class="container" ng-app="register-app" ng-controller="register-controller">
+    <div class="row">
+        <br><br><br><br>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center">Register</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="">Register</label>
+                            <input type="text" class="form-control" placeholder="Enter your new Username" ng-model="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="">First Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your first name" ng-model="first_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your last name" ng-model="last_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Age</label>
+                            <input type="text" class="form-control" placeholder="Enter your age" ng-model="age">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Password</label>
+                            <input type="password" class="form-control" placeholder="Password" ng-model="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="Confirm Password" ng-model="confirm_password">
+                        </div>
+                        <div class="row ng-cloak" ng-if="error">
+                            <div class="col-12">
+                                <div class="alert alert-danger" role="alert">
+                                    \{{error_message}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-primary btn-block" ng-click="register()">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#section 'scripts'}}
+    <script src="/content/js/login/register.js"></script>
+{{/section}}
