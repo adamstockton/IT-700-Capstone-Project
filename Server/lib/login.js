@@ -12,13 +12,10 @@ class Login {
     async authenticate (token) {
         // Check for an invalid session token
         if(token == undefined || token == "" || token == null) {
-            console.log("Token not defined");
             this._clearUser();
             return false;
         }
         
-        console.log(token);
-
         // Perform database query
         try {
             var results = await db.query("SELECT `user`, expiration FROM `session` WHERE session_id = ?", token);
@@ -30,7 +27,6 @@ class Login {
 
         // Process results
         if(results.length > 0) {
-            console.log("result found");
             var currentTime = new Date();
             // Check if token is valid
             if(results[0].expiration > currentTime) {
@@ -39,7 +35,6 @@ class Login {
                 this.userID = results[0].user;
                 return true;
             } else {
-                console.log("Token expired");
                 // Token is expired
                 this._clearUser();
                 return false;

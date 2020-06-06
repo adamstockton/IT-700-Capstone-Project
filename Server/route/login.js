@@ -18,8 +18,6 @@ router.use(async function (req, res, next) {
 
 // Routes
 router.get('/', function (req, res) {
-    console.log("Logged in: " + (res.locals.user != null ? "Yes" : "No"));
-    console.log(JSON.stringify(res.locals.user));
     res.render("login/login");
 });
 

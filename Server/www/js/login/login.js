@@ -7,9 +7,7 @@ app.controller('login-controller', function ($scope, $http) {
 
     $scope.login = function () {
         // Authenticate
-        console.log($scope.username);
-        console.log($scope.password);
-        $http.post("login/authenticate", {username: $scope.username, password: $scope.password}).then(
+        $http.post("/login/authenticate", {username: $scope.username, password: $scope.password}).then(
             function successCallback(response) {
                 if(response.data.token) {
                     $scope.error = false;
