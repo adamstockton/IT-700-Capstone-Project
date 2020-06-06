@@ -1,4 +1,5 @@
 const db = require("./db");
+const { v4: uuidv4} = require("uuid");
 
 class Login {
     constructor() {
@@ -80,6 +81,30 @@ class Login {
         }
 
         // User not found
+        return null;
+    }
+
+    static async authenticate(username, password) {
+        // Fetch user from database
+        try {
+            var user = await db.query("SELECT * FROM user WHERE `username` = ? AND `password` = ?", [username, password]);
+            if(user.length > 0) {
+                // User credentials are valid, generate a session token for them
+                var token = uuidv4().replace(/-/g, "");
+
+                // Generate the expriation of the token
+                var expiration = new Date();
+                expiration.setDate(expiration.getDate() + 1);
+
+                // Insert session into database
+                await db.query("INSERT INTO session (`user`, `session_id`, `expiration`) VALUES (?,?,?)", [user[0].id, token, expiration]);
+                
+                // Return token to caller
+                return token;
+            } 
+        } catch (e) {
+            return null;
+        }
         return null;
     }
 

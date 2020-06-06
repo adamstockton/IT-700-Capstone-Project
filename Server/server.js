@@ -29,8 +29,9 @@ app.engine("handlebars", handlebars.create({
 }).engine);
 app.set('view engine', 'handlebars');
 
-// Load Cookie-Parser Middleware
+// Load Middleware
 app.use(cookieParser());
+app.use(express.json());
 
 // Test routes (remove for production)
 app.get('/', (req, res) => {

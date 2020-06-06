@@ -16,11 +16,14 @@ database.query = function (query, values) {
             if(!e) {
                 connection.query(query, values, function (error, results) {
                     if(error) {
+                        connection.release();
                         return reject(error);
                     }
+                    connection.release();
                     return resolve(results);
                 })
             } else {
+                connection.release();
                 return reject(e);
             }
         });

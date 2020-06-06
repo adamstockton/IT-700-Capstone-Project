@@ -23,8 +23,22 @@ router.get('/', function (req, res) {
     res.render("login/login");
 });
 
-router.post('/authenticate', function (req, res) {
+router.post('/authenticate', async function (req, res) {
+    console.log(req.body.username);
+    // Check for payload properties
+    if(req.body.username == undefined || req.body.password == undefined) {
+        // Missing username or password, send failure
+        res.status(401).send({status:"failure"});
+        return;
+    }
 
+    // Process login
+    var token = await Login.authenticate(req.body.username, req.body.password);
+    if(token != null) {
+        res.send({status:"success",token:token});
+        return;
+    }
+    res.status(401).send({status:"failure"});
 });
 
 router.post('/', function (req, res) {
