@@ -125,6 +125,28 @@ router.get('/course/:id', async function (req, res) {
     res.send(course);
 });
 
+router.get('/course/:id/announcements', async function (req, res) {
+    if(res.locals.user == null) {
+        res.status(401).send({error:"you are not authenticated"});
+        return;
+    }
+
+    var announcements = [];
+    try {
+        var results = await db.query("SELECT `id`, `description` FROM announcement WHERE `active` = true && `class` = ?", [req.params.id]);
+        results.forEach(n => {
+            announcements.push({
+                id: n.id,
+                description: n.description
+            });
+        });
+    } catch (e) {
+
+    }
+
+    res.send(announcements);
+})
+
 router.get('/subjects', async function (req, res) {
     if(res.locals.user == null) {
         res.status(401).send({error:"you are not authenticated"});

@@ -9,14 +9,16 @@ app.controller('subject-controller', function ($scope, $http, $q) {
     };
     $scope.course_id = _course;
     $scope.course = {};
+    $scope.announcements = [];
     $scope.loading = true;
 
     $scope.init = function () {
         $q.all([
-            $http.get("/api/course/" + $scope.course_id, { cache: false })
-        ]).then(function ([course]) {
+            $http.get("/api/course/" + $scope.course_id, { cache: false }),
+            $http.get("/api/course/" + $scope.course_id + "/announcements", { cache: false })
+        ]).then(function ([course, announcements]) {
             $scope.course = course.data;
-
+            $scope.announcements = announcements.data;
             $scope.loading = false;
         }).catch(function () {
             $scope.loading = false;
