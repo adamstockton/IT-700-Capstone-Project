@@ -25,6 +25,17 @@ router.get("/register", function (req, res) {
     res.render("login/register");
 });
 
+router.get("/logout", async function (req, res) {
+    // Invalidate User Session Token
+    try {
+        await db.query("DELETE FROM session WHERE session_id = ?", [req.cookies.user_session]);
+    } catch (e) {
+
+    }
+
+    res.redirect('/login');
+})
+
 router.post('/authenticate', async function (req, res) {
     console.log(req.body.username);
     // Check for payload properties
