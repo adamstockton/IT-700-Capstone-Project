@@ -17,6 +17,12 @@ app.controller('subject-controller', function ($scope, $http, $q) {
             $http.get("/api/courses/" + $scope.subject, {cache:false})
         ]).then(function ([registered, courses]) {
             $scope.courses = courses.data;
+
+            // Check if student is already registered for the course
+            $scope.courses.forEach(n => {
+                n.registered = registered.data.some(r => n.course_id == r.course_id);
+            });
+
             $scope.loading = false;
         }).catch(function () {
             $scope.loading = false;

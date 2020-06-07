@@ -62,6 +62,31 @@ router.get('/courses/registered', async function (req, res) {
     res.send(courses);
 });
 
+router.get('/courses/:subject', async function (req, res) {
+    if(res.locals.user == null) {
+        res.status(401).send({error:"you are not authenticated"});
+        return;
+    }
+
+    var courses = [];
+    try {
+        var results = await db.query("SELECT c.id as 'course_id', c.course_name as 'course', c.subject as 'subject', u.first_name as 'instructor_first_name', u.last_name as 'instructor_last_name' FROM class c INNER JOIN user u ON c.instructor = u.id WHERE c.subject = ?", [req.params.subject]);
+        results.forEach(n => {
+            courses.push({
+                course_id: n.course_id,
+                subject: n.subject,
+                name: n.course,
+                instructor: (n.instructor_first_name + " " + n.instructor_last_name)
+            });
+        });
+    } catch (e) {
+
+    }
+
+    res.send(courses);
+
+});
+
 router.get('/subjects', async function (req, res) {
     if(res.locals.user == null) {
         res.status(401).send({error:"you are not authenticated"});
