@@ -1,6 +1,6 @@
-var app = angular.module('subject-app', []);
+var app = angular.module('course-app', []);
 
-app.controller('subject-controller', function ($scope, $http, $q) {
+app.controller('course-controller', function ($scope, $http, $q) {
     $scope.user = {
         id: _userData.id,
         first_name: _userData.first_name,
