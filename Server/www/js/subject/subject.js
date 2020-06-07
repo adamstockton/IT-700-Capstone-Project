@@ -11,10 +11,23 @@ app.controller('subject-controller', function ($scope, $http, $q) {
     $scope.courses = [];
     $scope.loading = true;
 
+    $scope.register = function (id) {
+        $http.post("/api/courses/register/" + id).then(
+            function (response) {
+                $scope.courses.forEach(n => {
+                    if(n.course_id == id) {
+                        n.registered = true;
+                    }
+                });
+            }).catch(function () {
+                alert("An error occured during registration");
+            });
+    }
+
     $scope.init = function () {
         $q.all([
-            $http.get("/api/courses/registered", {cache:false}),
-            $http.get("/api/courses/" + $scope.subject, {cache:false})
+            $http.get("/api/courses/registered", { cache: false }),
+            $http.get("/api/courses/" + $scope.subject, { cache: false })
         ]).then(function ([registered, courses]) {
             $scope.courses = courses.data;
 

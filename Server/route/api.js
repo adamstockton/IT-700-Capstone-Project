@@ -62,6 +62,22 @@ router.get('/courses/registered', async function (req, res) {
     res.send(courses);
 });
 
+router.post("/courses/register/:id", async function (req, res) {
+    if(res.locals.user == null) {
+        res.status(401).send({error:"you are not authenticated"});
+        return;
+    }
+
+    try {
+        await db.query("INSERT INTO registration (`user`, `course`) VALUES (?, ?)", [res.locals.user.id, req.params.id]);
+        res.send({status:"success"});
+        return;
+    } catch (e) {
+        res.status(400).send({status:"error", message:e});
+        return;
+    }
+});
+
 router.get('/courses/:subject', async function (req, res) {
     if(res.locals.user == null) {
         res.status(401).send({error:"you are not authenticated"});
