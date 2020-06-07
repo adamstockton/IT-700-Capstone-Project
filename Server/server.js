@@ -11,6 +11,7 @@ const db = require("./lib/db");
 const router_home = require("./route/home");
 const router_api = require("./route/api");
 const router_login = require("./route/login");
+const router_subject = require("./route/subject");
 
 // Constants
 const PORT = 8080;
@@ -42,7 +43,7 @@ app.use('/content', express.static('www'));
 app.use('/', router_home);
 app.use('/api', router_api);
 app.use('/login', router_login);
-
+app.use('/subject', router_subject);
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
