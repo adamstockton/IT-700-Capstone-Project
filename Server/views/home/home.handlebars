@@ -26,10 +26,43 @@
 </header>
 
 <div class="container ng-cloak" ng-app="dashboard-app" ng-controller="dashboard-controller">
-
-    <h1>My Courses</h1>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <h1>My Courses</h1>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" ng-show="courses.length == 0">
+            <div class="alert alert-info">You do not have any courses that you are registered for</div>
+        </div>
+        <div class="col-12 col-md-3" ng-show="courses.length > 0" ng-repeat="course in courses">
+            <div class="card" ng-click="openCourse(course.id)">
+                <div class="card-body">
+                    <h4>\{{course.name}}</h4>
+                    <p>This is a course</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <br><br><br>
-    <h1>Subjects</h1>
+    <div class="row">
+        <div class="col-12">
+            <h1>Subjects</h1>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-3" ng-show="subjects.length > 0" ng-repeat="subject in subjects">
+            <div class="card" ng-click="openSubject(subject.id)">
+                <div class="card-body">
+                    <h4>\{{subject.name}}</h4>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 

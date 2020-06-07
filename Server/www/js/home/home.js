@@ -7,6 +7,8 @@ app.controller('dashboard-controller', function ($scope, $http) {
         last_name: _userData.last_name,
         type: _userData.type
     };
+    $scope.courses = [];
+    $scope.subjects = [];
     $scope.loading = true;
 
     /*$scope.login = function () {
@@ -24,9 +26,29 @@ app.controller('dashboard-controller', function ($scope, $http) {
             }
         )
     }*/
+    $scope.openCourse = function (id) {
+        alert(id);
+    }
 
     $scope.init = function () {
+        $scope.courses.push({
+            id: 0,
+            name: "Chemistry"
+        });
 
+        $scope.subjects.push({
+            id: 0,
+            name: "English"
+        }, {
+            id: 1,
+            name: "Math"
+        }, {
+            id: 3,
+            name: "Science"
+        });
+        
+        $scope.loading = false;
+        
     }
 
     // Initialize
