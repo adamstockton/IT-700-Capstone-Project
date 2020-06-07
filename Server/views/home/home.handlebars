@@ -33,15 +33,20 @@
             <br>
         </div>
     </div>
+    <div class="row" ng-if="loading">
+        <div class="col-12 text-center">
+            <span class="fa-2x fas fa-spinner fa-spin"></span>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-12" ng-show="courses.length == 0">
+        <div class="col-12" ng-show="courses.length == 0 && !loading">
             <div class="alert alert-info">You do not have any courses that you are registered for</div>
         </div>
         <div class="col-12 col-md-3" ng-show="courses.length > 0" ng-repeat="course in courses">
             <div class="card" ng-click="openCourse(course.id)">
                 <div class="card-body">
                     <h4>\{{course.name}}</h4>
-                    <p>This is a course</p>
+                    <p><span class="fas fa-chalkboard-teacher"></span> \{{course.instructor}}</p>
                 </div>
             </div>
         </div>
@@ -53,17 +58,21 @@
             <br>
         </div>
     </div>
+    <div class="row" ng-if="loading">
+        <div class="col-12 text-center">
+            <span class="fa-2x fas fa-spinner fa-spin"></span>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-12 col-md-3" ng-show="subjects.length > 0" ng-repeat="subject in subjects">
-            <div class="card" ng-click="openSubject(subject.id)">
+        <div class="col-12 col-md-3" ng-show="subjects.length > 0 && !loading" ng-repeat="subject in subjects">
+            <div class="card" ng-click="openSubject(subject.subject)">
                 <div class="card-body">
-                    <h4>\{{subject.name}}</h4>
+                    <h4>\{{subject.subject}}</h4>
                     <p>&nbsp;</p>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 

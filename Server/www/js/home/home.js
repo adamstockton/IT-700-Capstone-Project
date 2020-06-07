@@ -1,6 +1,6 @@
 var app = angular.module('dashboard-app', []);
 
-app.controller('dashboard-controller', function ($scope, $http) {
+app.controller('dashboard-controller', function ($scope, $http, $q) {
     $scope.user = {
         id: _userData.id,
         first_name: _userData.first_name,
@@ -11,44 +11,26 @@ app.controller('dashboard-controller', function ($scope, $http) {
     $scope.subjects = [];
     $scope.loading = true;
 
-    /*$scope.login = function () {
-        // Authenticate
-        $http.post("/login/authenticate", {username: $scope.username, password: $scope.password}).then(
-            function successCallback(response) {
-                if(response.data.token) {
-                    $scope.error = false;
-                    document.cookie = "user_session=" + response.data.token;
-                    window.location.href = "/";
-                }
-            }, function errorCallback(response) {
-                $scope.password = "";
-                $scope.error = true;
-            }
-        )
-    }*/
-    $scope.openCourse = function (id) {
+    $scope.openCourse = function (id) {        
         alert(id);
     }
 
-    $scope.init = function () {
-        $scope.courses.push({
-            id: 0,
-            name: "Chemistry"
-        });
+    $scope.openSubject = function (subject) {
+        alert(subject);
+    };
 
-        $scope.subjects.push({
-            id: 0,
-            name: "English"
-        }, {
-            id: 1,
-            name: "Math"
-        }, {
-            id: 3,
-            name: "Science"
+    $scope.init = function () {
+        $q.all([
+            $http.get("/api/courses/registered", {cache:false}),
+            $http.get("/api/subjects", {cache:false})
+        ]).then(function ([courses, subjects]) {
+            $scope.courses = courses.data;
+            $scope.subjects = subjects.data;
+            $scope.loading = false;
+        }).catch(function () {
+            $scope.loading = false;
+            alert("an error occured");
         });
-        
-        $scope.loading = false;
-        
     }
 
     // Initialize
