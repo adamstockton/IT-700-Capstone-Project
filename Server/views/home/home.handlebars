@@ -43,7 +43,7 @@
             <div class="alert alert-info">You do not have any courses that you are registered for</div>
         </div>
         <div class="col-12 col-md-3" ng-show="courses.length > 0" ng-repeat="course in courses">
-            <div class="card" ng-click="openCourse(course.id)">
+            <div class="card" ng-click="openCourse(course.course_id)">
                 <div class="card-body">
                     <h4>\{{course.name}}</h4>
                     <p><span class="fas fa-chalkboard-teacher"></span> \{{course.instructor}}</p>
