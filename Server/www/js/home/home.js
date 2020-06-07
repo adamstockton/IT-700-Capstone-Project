@@ -12,11 +12,11 @@ app.controller('dashboard-controller', function ($scope, $http, $q) {
     $scope.loading = true;
 
     $scope.openCourse = function (id) {        
-        alert(id);
+        window.location.href = "/course/" + id;
     }
 
     $scope.openSubject = function (subject) {
-        alert(subject);
+        window.location.href = "/subject/" + subject;
     };
 
     $scope.init = function () {
