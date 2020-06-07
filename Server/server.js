@@ -9,6 +9,7 @@ const db = require("./lib/db");
 
 // Import router modules
 const router_home = require("./route/home");
+const router_api = require("./route/api");
 const router_login = require("./route/login");
 
 // Constants
@@ -39,6 +40,7 @@ app.use('/content', express.static('www'));
 
 // Inject Routers
 app.use('/', router_home);
+app.use('/api', router_api);
 app.use('/login', router_login);
 
 
