@@ -1,0 +1,110 @@
+{{#section 'head'}}
+    <title>Course</title>
+{{/section}}
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Co-Learn Portal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link navbar-top-element" href="/">Home</a></li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><span class="navbar-text"><span class="fas fa-user"></span> {{user_data.first_name}} {{user_data.last_name}} &nbsp;</span></li>
+                    <li class="nav-item"><a class="nav-link navbar-top-element" href="/login/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container ng-cloak" ng-app="meeting-app" ng-controller="meeting-controller">
+    <br>
+    <div class="row" ng-if="loading">
+        <div class="col-12 text-center">
+            <span class="fa-2x fas fa-spinner fa-spin"></span>
+        </div>
+    </div>
+    <div class="row" ng-show="!loading">
+        <div class="col-12">
+            <h1>\{{course.name}}</h1>
+            <br>
+        </div>
+    </div>
+    <div class="row" ng-show="!loading">
+        <div class="col-12">
+            <div class="alert alert-info" ng-repeat="announcement in announcements">\{{announcement.description}}</div>
+        </div>
+    </div>
+    <div class="row" ng-show="!loading">
+        <div class="col-12">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/course/\{{course.course_id}}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/course/\{{course.course_id}}/content">Content</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/course/\{{course.course_id}}/meetings">Meetings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/course/\{{course.course_id}}/discussion">Discussion</a>
+                </li>
+                <li class="nav-item" ng-show="user.type == 'instructor'">
+                    <a class="nav-link" href="/course/\{{course.course_id}}/manage">Manage</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row" ng-show="!loading">
+        <div class="col-12">
+            <br>
+            <h4>Meetings</h4>
+            <br>
+        </div>
+    </div>
+
+    <div class="row" ng-show="meetings.length == 0 && !loading">
+        <div class="col-12">
+            <div class="alert alert-info">There are not any meetings available at this time</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-4" ng-repeat="meeting in meetings">
+            <div class="card">
+                <div class="card-header">
+                    \{{meeting.name}}
+                </div>
+                <div class="card-body">
+                    <p><span class="fas fa-clock"></span> Start: \{{meeting.start}}</p>
+                    <p><span class="fas fa-clock"></span> End: \{{meeting.end}}</p>
+                    <p><span class="fas fa-video"></span> Link: \{{meeting.video_conference}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{#section 'scripts'}}
+    <script>
+        var _userData = {
+            id: {{user_data.id}},
+            first_name: '{{user_data.first_name}}',
+            last_name: '{{user_data.last_name}}',
+            type: '{{user_data.type}}'
+        }
+        var _course = "{{course}}";
+    </script>
+    <script src="/content/js/course/meeting.js"></script>
+{{/section}}

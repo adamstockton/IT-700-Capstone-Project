@@ -145,6 +145,31 @@ router.get('/course/:id/announcements', async function (req, res) {
     }
 
     res.send(announcements);
+});
+
+router.get('/course/:id/meetings', async function (req, res) {
+    if(res.locals.user == null) {
+        res.status(401).send({error:"you are not authenticated"});
+        return;
+    }
+
+    var meetings = [];
+    try {
+        var results = await db.query("SELECT `id`, `start`, `end`, `name`, `video_conference` FROM meeting WHERE `class` = ? ORDER BY `start`", [req.params.id]);
+        results.forEach(n => {
+            meetings.push({
+                id: n.id,
+                start: n.start,
+                end: n.end,
+                name: n.name,
+                video_conference: n.video_conference
+            });
+        });
+    } catch (e) {
+
+    }
+
+    res.send(meetings);
 })
 
 router.get('/subjects', async function (req, res) {
