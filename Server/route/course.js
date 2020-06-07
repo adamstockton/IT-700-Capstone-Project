@@ -29,4 +29,16 @@ router.get('/:course', function (req, res) {
     });
 });
 
+router.get("/:course/discussion", function (req, res) {
+    if(res.locals.user == null) {
+        res.redirect('/login');
+        return;
+    }
+
+    res.render("course/discussion", {
+        user_data: res.locals.user,
+        course: req.params.course
+    });
+})
+
 module.exports = router;
