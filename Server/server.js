@@ -12,6 +12,7 @@ const router_home = require("./route/home");
 const router_api = require("./route/api");
 const router_login = require("./route/login");
 const router_subject = require("./route/subject");
+const router_course = require("./route/course");
 
 // Constants
 const PORT = 8080;
@@ -44,6 +45,7 @@ app.use('/', router_home);
 app.use('/api', router_api);
 app.use('/login', router_login);
 app.use('/subject', router_subject);
+app.use('/course', router_course);
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
