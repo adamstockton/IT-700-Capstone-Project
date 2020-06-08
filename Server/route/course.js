@@ -39,7 +39,7 @@ router.get('/:course/content', function (req, res) {
         user_data: res.locals.user,
         course: req.params.course
     });
-})
+});
 
 router.get("/:course/meetings", function (req, res) {
     if(res.locals.user == null) {
@@ -51,7 +51,7 @@ router.get("/:course/meetings", function (req, res) {
         user_data: res.locals.user,
         course: req.params.course
     });
-})
+});
 
 router.get("/:course/discussion", function (req, res) {
     if(res.locals.user == null) {
@@ -63,6 +63,23 @@ router.get("/:course/discussion", function (req, res) {
         user_data: res.locals.user,
         course: req.params.course
     });
-})
+});
+
+router.get("/:course/manage", function (req, res) {
+    if(res.locals.user == null) {
+        res.redirect('/login');
+        return;
+    }
+
+    if(res.locals.user.type != "instructor") {
+        res.status(401).send("You are not authorized to access this resource");
+        return;
+    }
+
+    res.render("course/manage", {
+        user_data: res.locals.user,
+        course: req.params.course
+    });
+});
 
 module.exports = router;
